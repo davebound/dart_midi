@@ -1,8 +1,9 @@
+import 'dart:io';
+
 import 'package:dart_midi/src/byte_reader.dart';
 import 'package:dart_midi/src/midi_events.dart';
 import 'package:dart_midi/src/midi_file.dart';
 import 'package:dart_midi/src/midi_header.dart';
-import 'dart:io';
 
 /// MidiParser is a class responsible of parsing MIDI data into dart objects
 class MidiParser {
@@ -66,8 +67,8 @@ class MidiParser {
   }
 
   /// Reads event from provided [p] and returns parsed [MidiEvent]
-  MidiEvent readEvent(ByteReader p) {
-    var deltaTime = p.readVarInt();
+  MidiEvent readEvent(ByteReader p, {bool containsDeltaTime = true}) {
+    var deltaTime = containsDeltaTime ? p.readVarInt() : 0;
 
     var eventTypeByte = p.readUInt8();
 

@@ -47,6 +47,11 @@ class ProgramChangeMidiEvent extends MidiEvent {
     w.writeUInt8(programNumber);
     return eventTypeByte;
   }
+
+  @override
+  toString() {
+    return '$type, ch:$channel, prog:$programNumber';
+  }
 }
 
 class ChannelAfterTouchEvent extends MidiEvent {
@@ -63,7 +68,8 @@ class ChannelAfterTouchEvent extends MidiEvent {
 
 class PitchBendEvent extends MidiEvent {
   int channel = 0;
-  int value = 0; // A pitch bend value from -8192 to 8191. Defaults to 0, or no bend.
+  int value =
+      0; // A pitch bend value from -8192 to 8191. Defaults to 0, or no bend.
 
   int writeEvent(ByteWriter w) {
     var eventTypeByte = 0xE0 | channel;
@@ -89,6 +95,11 @@ class ControllerEvent extends MidiEvent {
     w.writeUInt8(controllerType);
     w.writeUInt8(value);
     return eventTypeByte;
+  }
+
+  @override
+  toString() {
+    return '$type, ch:$channel, ctrlType:$controllerType, val:$value';
   }
 }
 
